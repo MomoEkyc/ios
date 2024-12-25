@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "MomoEkyc"
-  spec.version      = "0.0.1"
+  spec.version      = "0.0.2"
   spec.summary      = "MomoEkyc SDK."
 
   # This description is used to generate tags and improve search results.
@@ -65,11 +65,13 @@ Pod::Spec.new do |spec|
   spec.platform     = :ios, "13.0"
 
   #  When using multiple platforms
-  # spec.ios.deployment_target = "5.0"
+  spec.ios.deployment_target = "13.0"
   # spec.osx.deployment_target = "10.7"
   # spec.watchos.deployment_target = "2.0"
   # spec.tvos.deployment_target = "9.0"
   # spec.visionos.deployment_target = "1.0"
+  spec.swift_versions    = ['5.0', '5.2']
+  spec.static_framework  = true
 
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -108,7 +110,6 @@ Pod::Spec.new do |spec|
 
   # spec.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
-
   # ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
   #  Link your library with frameworks, or libraries. Libraries do not include
@@ -132,6 +133,10 @@ Pod::Spec.new do |spec|
   # spec.requires_arc = true
 
   # spec.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  # spec.dependency "JSONKit", "~> 1.4"
+  spec.dependency 'GoogleMLKit/MLKitCore', '6.0.0'
+  spec.dependency 'GoogleMLKit/FaceDetection', '6.0.0'
+  spec.dependency 'GoogleMLKit/BarcodeScanning', '6.0.0'
+  spec.dependency 'GoogleMLKit/TextRecognition', '6.0.0'
+  spec.dependency 'SSZipArchive', '2.4.3'
 
 end
