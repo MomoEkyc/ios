@@ -1,0 +1,447 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
+// swift-module-flags: -target x86_64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name MomoEkycSDK
+import AVFoundation
+import Combine
+import CommonCrypto
+import Compression
+import CoreImage
+import CoreMedia
+import CoreVideo
+import CryptoKit
+import Foundation
+import ImageIO
+import MLKitBarcodeScanning
+import MLKitCommon
+import MLKitFaceDetection
+import MLKitTextRecognition
+import MLKitVision
+@_exported import MomoEkycSDK
+import SSZipArchive
+import Security
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public protocol DetectorProcessorFactoryProtocol {
+  func create(listType: [MomoEkycSDK.AnalysisUseCaseType]) -> [(any MomoEkycSDK.DetectorProcessor)?]
+}
+@_hasMissingDesignatedInitializers public class TimeUtil {
+  @objc deinit
+}
+public var faceExtraConfigs: MomoEkycSDK.FaceExtraConfigs
+public var verticalAnimation: Swift.Double
+public var listColorFlicker: [Swift.String]
+public let MAIN_FACE_ONLY_OPTIONS: MomoEkycSDK.FaceStep
+public let MAIN_FACE_ONLY_BLINK_OPTIONS: MomoEkycSDK.FaceStep
+public let MAIN_LEFT_OPTIONS: MomoEkycSDK.FaceStep
+public let MAIN_RIGHT_OPTIONS: MomoEkycSDK.FaceStep
+public let THREE_ANGLES_OPTIONS: MomoEkycSDK.FaceStep
+public let FIVE_ANGLES_OPTIONS: MomoEkycSDK.FaceStep
+public let THREE_ANGLES_2030_OPTIONS: MomoEkycSDK.FaceStep
+public let MAIN_ONLY_FLICKER_COLOR_OPTIONS: MomoEkycSDK.FaceStep
+public var FACE_OPTIONS_MAPPING: [Swift.String : MomoEkycSDK.LazyValue<MomoEkycSDK.FaceStep>]
+public struct LazyValue<T> {
+  public var value: T {
+    mutating get
+    set
+  }
+  public init(_ initializer: @escaping () -> T)
+}
+public protocol CameraPreviewViewProtocol : UIKit.UIView {
+  func startCamera(callback: MomoEkycSDK.SDKCallback?)
+  func stopCamera(callback: MomoEkycSDK.SDKCallback?)
+  func captureImage(callback: MomoEkycSDK.SDKCallback?)
+  func setFlashMode(mode: AVFoundation.AVCaptureDevice.FlashMode)
+  func setTorchMode(mode: AVFoundation.AVCaptureDevice.TorchMode)
+  func getPreviewLayer() -> AVFoundation.AVCaptureVideoPreviewLayer
+}
+@_hasMissingDesignatedInitializers @available(iOS 13.0, *)
+public class MrzManager {
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @available(iOS 13.0, *)
+@objc(OCRCameraView) @_Concurrency.MainActor(unsafe) public class OCRCameraView : UIKit.UIView, MomoEkycSDK.CameraSessionDelegate, MomoEkycSDK.OCRSDKProtocol {
+  @_Concurrency.MainActor(unsafe) public var listener: (any MomoEkycSDK.OCRCameraListener)?
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func layoutSubviews()
+  @_Concurrency.MainActor(unsafe) public func onError(_ error: MomoEkycSDK.SDKCallbackFailure?)
+  @_Concurrency.MainActor(unsafe) public func onImageAnalysis(sampleBuffer: CoreMedia.CMSampleBuffer)
+  @_Concurrency.MainActor(unsafe) public func startCamera(callback: MomoEkycSDK.SDKCallback?)
+  @_Concurrency.MainActor(unsafe) public func stopCamera(callback: MomoEkycSDK.SDKCallback?)
+  @_Concurrency.MainActor(unsafe) public func startDetector(callback: MomoEkycSDK.SDKCallback?)
+  @_Concurrency.MainActor(unsafe) public func stopDetector(callback: MomoEkycSDK.SDKCallback?)
+  @_Concurrency.MainActor(unsafe) public func captureImage(callback: MomoEkycSDK.SDKCallback?)
+  @_Concurrency.MainActor(unsafe) public func setOcrExtraConfigs(configs: MomoEkycSDK.OcrExtraConfigs)
+  @_Concurrency.MainActor(unsafe) public func setAnalysisUseCaseType(listUseCase: [MomoEkycSDK.AnalysisUseCaseType])
+  @_Concurrency.MainActor(unsafe) public func setDebug(isDebug: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) public func setCameraType(type: AVFoundation.AVCaptureDevice.Position)
+  @_Concurrency.MainActor(unsafe) public func setFlashMode(mode: AVFoundation.AVCaptureDevice.FlashMode)
+  @_Concurrency.MainActor(unsafe) public func setTorchMode(mode: AVFoundation.AVCaptureDevice.TorchMode)
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class PreviewView : UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public class var layerClass: Swift.AnyClass {
+    @objc get
+  }
+  @objc deinit
+}
+public enum AnalysisUseCaseType : Swift.String {
+  case face
+  case text
+  case barcode
+  case none
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class OcrMapUtil {
+  public static func toFaceFrameMap(_ face: MLKitFaceDetection.Face) -> Swift.Dictionary<Swift.String, Any?>
+  public static func toBarcodeFrameMap(_ barcode: MLKitBarcodeScanning.Barcode) -> Swift.Dictionary<Swift.String, Any?>
+  public static func toTextFrameMap(_ text: MLKitTextRecognitionCommon.Text) -> Swift.Dictionary<Swift.String, Any?>
+  public static func mapToOcrExtraConfigs(params: Foundation.NSDictionary) -> MomoEkycSDK.OcrExtraConfigs
+  @objc deinit
+}
+public var extraConfigs: MomoEkycSDK.ExtraConfigs
+public struct OcrSDKDebugging {
+  public var isDebug: Swift.Bool
+}
+@_hasMissingDesignatedInitializers public class OcrSDKUtil {
+  @objc deinit
+}
+public enum FaceStatus : Swift.String {
+  case empty
+  case faceInside
+  case faceOutside
+  case multipleFace
+  case faceNotStraight
+  case faceTooClose
+  case faceTooFar
+  case faceInvalid
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public class SdkApi {
+  public var logger: (any MomoEkycSDK.SdkLoggerProtocol)?
+  public init()
+  @objc deinit
+}
+public protocol SdkLoggerProtocol {
+  func logi(_ msg: Swift.String)
+  func logw(_ msg: Swift.String)
+  func loge(_ msg: Swift.String)
+}
+@_hasMissingDesignatedInitializers public class FaceHelper {
+  public static func calculatorRealFaceSize(imageWidth: CoreFoundation.CGFloat, imageHeight: CoreFoundation.CGFloat, parentCaptureView: AVFoundation.AVCaptureVideoPreviewLayer, face: MLKitFaceDetection.Face) -> CoreFoundation.CGRect
+  public static func isContain(_ container: CoreFoundation.CGRect, contains item: CoreFoundation.CGRect) -> Swift.Bool
+  public static func isNotStraight(face: MLKitFaceDetection.Face) -> Swift.Bool
+  public static func isTooClose(face: CoreFoundation.CGRect, circle: CoreFoundation.CGRect) -> Swift.Bool
+  public static func isTooFar(face: CoreFoundation.CGRect, circle: CoreFoundation.CGRect) -> Swift.Bool
+  public static func imageOrientation(fromDevicePosition devicePosition: AVFoundation.AVCaptureDevice.Position = .back) -> UIKit.UIImage.Orientation
+  public static func addRectangle(_ rectangle: CoreFoundation.CGRect, to view: UIKit.UIView, color: UIKit.UIColor)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(CameraView) @_Concurrency.MainActor(unsafe) public class CameraPreviewView : UIKit.UIView, MomoEkycSDK.CameraSessionDelegate, MomoEkycSDK.CameraPreviewViewProtocol {
+  @_Concurrency.MainActor(unsafe) public var cameraType: AVFoundation.AVCaptureDevice.Position
+  @_Concurrency.MainActor(unsafe) public var cameraSession: MomoEkycSDK.CameraSession
+  @_Concurrency.MainActor(unsafe) public var isActive: Swift.Bool
+  @_Concurrency.MainActor(unsafe) public var currentConfigureCall: Dispatch.DispatchTime?
+  @_Concurrency.MainActor(unsafe) weak public var cameraSessionDelegate: (any MomoEkycSDK.CameraSessionDelegate)?
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func layoutSubviews()
+  @_Concurrency.MainActor(unsafe) convenience public init(_ cameraType: AVFoundation.AVCaptureDevice.Position)
+  @_Concurrency.MainActor(unsafe) public func startCamera(callback: MomoEkycSDK.SDKCallback?)
+  @_Concurrency.MainActor(unsafe) public func stopCamera(callback: MomoEkycSDK.SDKCallback?)
+  @_Concurrency.MainActor(unsafe) public func captureImage(callback: MomoEkycSDK.SDKCallback?)
+  @_Concurrency.MainActor(unsafe) public func setFlashMode(mode: AVFoundation.AVCaptureDevice.FlashMode)
+  @_Concurrency.MainActor(unsafe) public func setTorchMode(mode: AVFoundation.AVCaptureDevice.TorchMode)
+  @_Concurrency.MainActor(unsafe) public func getPreviewLayer() -> AVFoundation.AVCaptureVideoPreviewLayer
+  @_Concurrency.MainActor(unsafe) public func onError(_ error: MomoEkycSDK.SDKCallbackFailure?)
+  @_Concurrency.MainActor(unsafe) public func onImageAnalysis(sampleBuffer: CoreMedia.CMSampleBuffer)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class CameraQueues : ObjectiveC.NSObject {
+  @objc public static let cameraQueue: Dispatch.DispatchQueue
+  @objc public static let videoQueue: Dispatch.DispatchQueue
+  @objc public static let captureQueue: Dispatch.DispatchQueue
+  @objc public static let mainQueue: Dispatch.DispatchQueue
+  @objc override dynamic public init()
+  @objc deinit
+}
+public enum CameraLensType : Swift.Int {
+  case LENS_FACING_FRONT
+  case LENS_FACING_BACK
+  case LENS_FACING_UNKNOWN
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol OCRCameraListener : AnyObject {
+  func onReady(result: MomoEkycSDK.SDKCallbackSuccess<Swift.Bool>)
+  func onFail(error: MomoEkycSDK.SDKCallbackFailure)
+  func onCaptureImage(result: MomoEkycSDK.SDKCallbackSuccess<Swift.String>)
+  func onDetectFrame(result: MomoEkycSDK.SDKCallbackSuccess<Any>)
+  func onDetectMRZ(result: MomoEkycSDK.SDKCallbackSuccess<Swift.String>)
+}
+@_hasMissingDesignatedInitializers public class ImageUtil {
+  public static func calculatorRealFaceSize(imageWidth: CoreFoundation.CGFloat, imageHeight: CoreFoundation.CGFloat, parentCaptureView: AVFoundation.AVCaptureVideoPreviewLayer, face: MLKitFaceDetection.Face) -> CoreFoundation.CGRect
+  public static func imageOrientation(fromDevicePosition devicePosition: AVFoundation.AVCaptureDevice.Position = .back) -> UIKit.UIImage.Orientation
+  public static func executeImage(_ taskName: Swift.String, _ imageBuffer: CoreVideo.CVImageBuffer, _ imagePrefixName: Swift.String, _ boundingBox: CoreFoundation.CGRect, _ extraConfigs: MomoEkycSDK.ExtraConfigs) -> Swift.String?
+  public static func executeNormalImage(_ imageBuffer: CoreVideo.CVImageBuffer, _ imageName: Swift.String, _ extraConfigs: MomoEkycSDK.ExtraConfigs) -> Swift.String?
+  public static func executePhotoImage(_ photo: AVFoundation.AVCapturePhoto, _ imageName: Swift.String, _ extraConfigs: MomoEkycSDK.ExtraConfigs) -> Swift.String?
+  public static func imageFromCVImageBuffer(imageBuffer: CoreVideo.CVImageBuffer) -> UIKit.UIImage?
+  public static func saveImageDataToFile(_ imageData: Foundation.Data, _ imageName: Swift.String) -> Swift.String?
+  public static func saveImageJPEGToFile(_ uiImage: UIKit.UIImage, _ imageName: Swift.String, _ compressPercent: Swift.Double) -> Swift.String?
+  public static func addExifMetadata(_ image: UIKit.UIImage, _ filePath: Swift.String, _ data: Swift.String, _ compressPercent: Swift.Double)
+  public static func isImageBlurry(imageBuffer: CoreVideo.CVImageBuffer, _ blurThreshold: Swift.Double) -> Swift.Bool
+  public static func denoiseImage(sampleBuffer: CoreMedia.CMSampleBuffer) -> CoreMedia.CMSampleBuffer?
+  public static func isBrightnessWithinRange(imageBuffer: CoreVideo.CVImageBuffer) -> Swift.Bool
+  public static func compressFoldersToZip(_ flowName: Swift.String, imageMap: [Swift.String : [Swift.String]]) -> Swift.String?
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @available(iOS 13.0, *)
+@objc(FaceSDK) @_Concurrency.MainActor(unsafe) public class FaceSDK : UIKit.UIView, MomoEkycSDK.CameraSessionDelegate, MomoEkycSDK.FaceSDKProtocol {
+  @_Concurrency.MainActor(unsafe) public var listener: (any MomoEkycSDK.FaceSDKListener)?
+  @objc deinit
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func layoutSubviews()
+  @_Concurrency.MainActor(unsafe) public func onError(_ error: MomoEkycSDK.SDKCallbackFailure?)
+  @_Concurrency.MainActor(unsafe) public func onImageAnalysis(sampleBuffer: CoreMedia.CMSampleBuffer)
+  @_Concurrency.MainActor(unsafe) public func startCamera(callback: MomoEkycSDK.SDKCallback?)
+  @_Concurrency.MainActor(unsafe) public func stopCamera(callback: MomoEkycSDK.SDKCallback?)
+  @_Concurrency.MainActor(unsafe) public func startDetector(callback: MomoEkycSDK.SDKCallback?)
+  @_Concurrency.MainActor(unsafe) public func stopDetector(callback: MomoEkycSDK.SDKCallback?)
+  @_Concurrency.MainActor(unsafe) public func captureImage(callback: MomoEkycSDK.SDKCallback?)
+  @_Concurrency.MainActor(unsafe) public func setFaceTaskStep(faceStep: MomoEkycSDK.FaceStep)
+  @_Concurrency.MainActor(unsafe) public func setFaceExtraConfigs(configs: MomoEkycSDK.FaceExtraConfigs)
+  @_Concurrency.MainActor(unsafe) public func setFaceManagerType(type: MomoEkycSDK.FaceManagerType)
+  @_Concurrency.MainActor(unsafe) public func setAnalysisUseCaseType(listUseCase: [MomoEkycSDK.AnalysisUseCaseType])
+  @_Concurrency.MainActor(unsafe) public func setAnimationType(animationType: MomoEkycSDK.AnimationType)
+  @_Concurrency.MainActor(unsafe) public func setDebug(isDebug: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) public func setCameraType(type: AVFoundation.AVCaptureDevice.Position)
+  @_Concurrency.MainActor(unsafe) public func setAnimationViewPosition(vertical: Swift.Double)
+}
+@available(iOS 13.0, *)
+public class StatefulValue<T> where T : Swift.Equatable {
+  @Combine.Published @_projectedValueProperty($value) public var value: T {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  public var $value: Combine.Published<T>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  public init(_ value: T)
+  public func update(_ value: T)
+  @objc deinit
+}
+public protocol OCRSDKProtocol {
+  func startCamera(callback: MomoEkycSDK.SDKCallback?)
+  func stopCamera(callback: MomoEkycSDK.SDKCallback?)
+  func startDetector(callback: MomoEkycSDK.SDKCallback?)
+  func stopDetector(callback: MomoEkycSDK.SDKCallback?)
+  func captureImage(callback: MomoEkycSDK.SDKCallback?)
+  func setOcrExtraConfigs(configs: MomoEkycSDK.OcrExtraConfigs)
+  func setAnalysisUseCaseType(listUseCase: [MomoEkycSDK.AnalysisUseCaseType])
+  func setDebug(isDebug: Swift.Bool)
+  func setCameraType(type: AVFoundation.AVCaptureDevice.Position)
+  func setFlashMode(mode: AVFoundation.AVCaptureDevice.FlashMode)
+  func setTorchMode(mode: AVFoundation.AVCaptureDevice.TorchMode)
+}
+@_hasMissingDesignatedInitializers public class SdkInitializer {
+  public static let shared: MomoEkycSDK.SdkInitializer
+  public func initialize(_ api: MomoEkycSDK.SdkApi)
+  @objc deinit
+}
+public struct OcrExtraConfigs {
+  public var enableMRZ: Swift.Bool
+  public var extraConfigs: MomoEkycSDK.ExtraConfigs
+  public init(enableMRZ: Swift.Bool = true, extraConfigs: MomoEkycSDK.ExtraConfigs = ExtraConfigs.DEFAULT)
+}
+public struct FaceExtraConfigs {
+  public var guideBoundingBoxInputWidthPercent: Swift.Double
+  public var guideBoundingBoxInputHeightPercent: Swift.Double
+  public var guideBoundingBoxOutputWidthPercent: Swift.Double
+  public var guideBoundingBoxOutputHeightPercent: Swift.Double
+  public var faceFarRatio: Swift.Double
+  public var faceNearRatio: Swift.Double
+  public var faceStraightX0: Swift.Double
+  public var faceStraightX1: Swift.Double
+  public var circleProgressBorderColor: Swift.String
+  public var overlapThreshold: Swift.Double
+  public var headerEulerAngleYCaptureList: [Swift.Int64]
+  public var extraConfigs: MomoEkycSDK.ExtraConfigs
+  public init(guideBoundingBoxInputWidthPercent: Swift.Double = 0.0, guideBoundingBoxInputHeightPercent: Swift.Double = 0.0, guideBoundingBoxOutputWidthPercent: Swift.Double = 0.0, guideBoundingBoxOutputHeightPercent: Swift.Double = 0.0, faceFarRatio: Swift.Double = 0.0, faceNearRatio: Swift.Double = 0.0, faceStraightX0: Swift.Double = 0.0, faceStraightX1: Swift.Double = 0.0, circleProgressBorderColor: Swift.String = "#d82d8b", overlapThreshold: Swift.Double = 0.0, headerEulerAngleYCaptureList: [Swift.Int64] = [], extraConfigs: MomoEkycSDK.ExtraConfigs = ExtraConfigs.DEFAULT)
+}
+public struct FaceStep {
+  public static let Default: MomoEkycSDK.FaceStep
+  public static let Main: MomoEkycSDK.FaceStep
+}
+@_hasMissingDesignatedInitializers public class FaceMapUtil {
+  public static func mapToFaceStep(params: Foundation.NSDictionary) -> MomoEkycSDK.FaceStep
+  public static func mapToFaceExtraConfigs(params: Foundation.NSDictionary) -> MomoEkycSDK.FaceExtraConfigs
+  public static func toFaceFrameMap(_ face: MLKitFaceDetection.Face) -> Swift.Dictionary<Swift.String, Any?>
+  @objc deinit
+}
+public func getFaceDetectTypeFromString(type: Swift.String) -> MomoEkycSDK.FaceManagerType
+public protocol FaceSDKListener : AnyObject {
+  func onReady(result: MomoEkycSDK.SDKCallbackSuccess<Swift.Bool>)
+  func onChangeStatus(status: MomoEkycSDK.FaceStatus)
+  func onProcessStep(step: Swift.String, duration: Swift.Float)
+  func onFail(error: MomoEkycSDK.SDKCallbackFailure)
+  func onDone(result: MomoEkycSDK.SDKCallbackSuccess<Swift.Dictionary<Swift.String, [Swift.String]>>)
+  func onDoneImageAngle(result: MomoEkycSDK.SDKCallbackSuccess<Swift.Dictionary<Swift.String, Swift.String>>)
+  func onDoneCompressZip(result: MomoEkycSDK.SDKCallbackSuccess<Swift.String>)
+  func onCaptureImage(result: MomoEkycSDK.SDKCallbackSuccess<Swift.String>)
+  func onDetectFrame(result: MomoEkycSDK.SDKCallbackSuccess<[Swift.Dictionary<Swift.String, Any?>]>)
+  func onAnimationViewHeight(height: Swift.Int)
+}
+public func getAnimationTypeFromString(type: Swift.String) -> MomoEkycSDK.AnimationType
+public var ocrExtraConfigs: MomoEkycSDK.OcrExtraConfigs
+@_hasMissingDesignatedInitializers public class SdkLogger {
+  public static let TAG: Swift.String
+  public static func logi(_ msg: Swift.String)
+  public static func logw(_ msg: Swift.String)
+  public static func loge(_ msg: Swift.String)
+  @objc deinit
+}
+public protocol CameraSessionDelegate : AnyObject {
+  func onError(_ error: MomoEkycSDK.SDKCallbackFailure?)
+  func onImageAnalysis(sampleBuffer: CoreMedia.CMSampleBuffer)
+}
+#if compiler(>=5.3) && $PrimaryAssociatedTypes2
+public protocol DetectorProcessor<D, T> {
+  associatedtype D
+  associatedtype T
+  var detector: Self.D? { get set }
+  func start()
+  func stop()
+  func processInputImage(inputImage: MLKitVision.VisionImage, onDetectFinished: @escaping (Self.T) -> Swift.Void, onDetectFailed: ((any Swift.Error) -> Swift.Void)?, onDetectComplete: (() -> Swift.Void)?)
+}
+#else
+public protocol DetectorProcessor {
+  associatedtype D
+  associatedtype T
+  var detector: Self.D? { get set }
+  func start()
+  func stop()
+  func processInputImage(inputImage: MLKitVision.VisionImage, onDetectFinished: @escaping (Self.T) -> Swift.Void, onDetectFailed: ((any Swift.Error) -> Swift.Void)?, onDetectComplete: (() -> Swift.Void)?)
+}
+#endif
+public enum AnimationType : Swift.String {
+  case baseView
+  case lottieView
+  case flickerColorView
+  case none
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class Utils {
+  public static func calculatorRealFaceSize(imageWidth: CoreFoundation.CGFloat, imageHeight: CoreFoundation.CGFloat, parentCaptureView: AVFoundation.AVCaptureVideoPreviewLayer, face: MLKitFaceDetection.Face) -> CoreFoundation.CGRect
+  public static func isContain(_ container: CoreFoundation.CGRect, contains item: CoreFoundation.CGRect) -> Swift.Bool
+  public static func isNotStraight(face: MLKitFaceDetection.Face) -> Swift.Bool
+  public static func isTooClose(face: CoreFoundation.CGRect, circle: CoreFoundation.CGRect) -> Swift.Bool
+  public static func isTooFar(face: CoreFoundation.CGRect, circle: CoreFoundation.CGRect) -> Swift.Bool
+  public static func imageOrientation(fromDevicePosition devicePosition: AVFoundation.AVCaptureDevice.Position = .back) -> UIKit.UIImage.Orientation
+  public static func addRectangle(_ rectangle: CoreFoundation.CGRect, to view: UIKit.UIView, color: UIKit.UIColor)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class MapUtil {
+  public static func mapToExtraConfigs(params: Foundation.NSDictionary) -> MomoEkycSDK.ExtraConfigs
+  @objc deinit
+}
+public protocol SDKCallbackResult {
+}
+public class SDKCallbackSuccess<T> : MomoEkycSDK.SDKCallbackResult {
+  final public let result: T
+  public init(result: T)
+  @objc deinit
+}
+public class SDKCallbackFailure : MomoEkycSDK.SDKCallbackResult {
+  final public let code: Swift.String
+  final public let message: Swift.String
+  final public let error: (any Swift.Error)?
+  public init(code: Swift.String, message: Swift.String, error: (any Swift.Error)?)
+  @objc deinit
+}
+public typealias SDKCallback = (any MomoEkycSDK.SDKCallbackResult) -> Swift.Void
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class CameraSession : ObjectiveC.NSObject, AVFoundation.AVCaptureVideoDataOutputSampleBufferDelegate, AVFoundation.AVCapturePhotoCaptureDelegate {
+  public var isActive: Swift.Bool
+  @objc deinit
+  public func configure(lensType: AVFoundation.AVCaptureDevice.Position)
+  @objc final public func captureOutput(_ captureOutput: AVFoundation.AVCaptureOutput, didOutput sampleBuffer: CoreMedia.CMSampleBuffer, from _: AVFoundation.AVCaptureConnection)
+  @objc public func photoOutput(_ output: AVFoundation.AVCapturePhotoOutput, willCapturePhotoFor resolvedSettings: AVFoundation.AVCaptureResolvedPhotoSettings)
+  @objc public func photoOutput(_ output: AVFoundation.AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVFoundation.AVCapturePhoto, error: (any Swift.Error)?)
+}
+public enum FaceManagerType : Swift.String {
+  case Default
+  case Flicker
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public func getAnalysisUseCaseFromString(type: Swift.String) -> MomoEkycSDK.AnalysisUseCaseType
+public func getAnalysisUseCaseFromList(listType: [Swift.String]) -> [MomoEkycSDK.AnalysisUseCaseType]
+public protocol FaceSDKProtocol {
+  func startCamera(callback: MomoEkycSDK.SDKCallback?)
+  func stopCamera(callback: MomoEkycSDK.SDKCallback?)
+  func startDetector(callback: MomoEkycSDK.SDKCallback?)
+  func stopDetector(callback: MomoEkycSDK.SDKCallback?)
+  func captureImage(callback: MomoEkycSDK.SDKCallback?)
+  func setFaceTaskStep(faceStep: MomoEkycSDK.FaceStep)
+  func setFaceExtraConfigs(configs: MomoEkycSDK.FaceExtraConfigs)
+  func setFaceManagerType(type: MomoEkycSDK.FaceManagerType)
+  func setAnalysisUseCaseType(listUseCase: [MomoEkycSDK.AnalysisUseCaseType])
+  func setAnimationType(animationType: MomoEkycSDK.AnimationType)
+  func setDebug(isDebug: Swift.Bool)
+  func setCameraType(type: AVFoundation.AVCaptureDevice.Position)
+  func setAnimationViewPosition(vertical: Swift.Double)
+}
+public struct ExtraConfigs {
+  public var reference: Swift.String
+  public var compressPercent: Swift.Double
+  public var isBase64Image: Swift.Bool
+  public var isCropImage: Swift.Bool
+  public var isProtectImage: Swift.Bool
+  public var waterMark: Swift.String
+  public var checkBlur: Swift.Bool
+  public var blurThreshold: Swift.Double
+  public var checkDenoise: Swift.Bool
+  public var checkBrightness: Swift.Bool
+  public var darkThreshold: Swift.Double
+  public var brightThreshold: Swift.Double
+  public var isCompressZip: Swift.Bool
+  public init(reference: Swift.String = "", compressPercent: Swift.Double = 100, isBase64Image: Swift.Bool = false, isCropImage: Swift.Bool = false, isProtectImage: Swift.Bool = false, waterMark: Swift.String = "", checkBlur: Swift.Bool = false, blurThreshold: Swift.Double = 500.0, checkDenoise: Swift.Bool = false, checkBrightness: Swift.Bool = false, darkThreshold: Swift.Double = 0.3, brightThreshold: Swift.Double = 0.7, isCompressZip: Swift.Bool = false)
+  public static let DEFAULT: MomoEkycSDK.ExtraConfigs
+  public static func mergeConfigs(newConfig: MomoEkycSDK.ExtraConfigs) -> MomoEkycSDK.ExtraConfigs
+}
+extension MomoEkycSDK.AnalysisUseCaseType : Swift.Equatable {}
+extension MomoEkycSDK.AnalysisUseCaseType : Swift.Hashable {}
+extension MomoEkycSDK.AnalysisUseCaseType : Swift.RawRepresentable {}
+extension MomoEkycSDK.FaceStatus : Swift.Equatable {}
+extension MomoEkycSDK.FaceStatus : Swift.Hashable {}
+extension MomoEkycSDK.FaceStatus : Swift.RawRepresentable {}
+extension MomoEkycSDK.CameraLensType : Swift.Equatable {}
+extension MomoEkycSDK.CameraLensType : Swift.Hashable {}
+extension MomoEkycSDK.CameraLensType : Swift.RawRepresentable {}
+extension MomoEkycSDK.AnimationType : Swift.Equatable {}
+extension MomoEkycSDK.AnimationType : Swift.Hashable {}
+extension MomoEkycSDK.AnimationType : Swift.RawRepresentable {}
+extension MomoEkycSDK.FaceManagerType : Swift.Equatable {}
+extension MomoEkycSDK.FaceManagerType : Swift.Hashable {}
+extension MomoEkycSDK.FaceManagerType : Swift.RawRepresentable {}

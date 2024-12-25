@@ -1,0 +1,11 @@
+framework module MomoEkycSDK {
+  umbrella header "MomoEkycSDK.h"
+  export *
+
+  module * { export * }
+}
+
+module MomoEkycSDK.Swift {
+  header "MomoEkycSDK-Swift.h"
+  requires objc
+}
