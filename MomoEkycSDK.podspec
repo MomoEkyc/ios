@@ -15,7 +15,7 @@ Pod::Spec.new do |spec|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  spec.name         = "MomoEkyc"
+  spec.name         = "MomoEkycSDK"
   spec.version      = "0.0.2"
   spec.summary      = "MomoEkyc SDK."
 
@@ -137,6 +137,5 @@ Pod::Spec.new do |spec|
   spec.dependency 'GoogleMLKit/FaceDetection', '6.0.0'
   spec.dependency 'GoogleMLKit/BarcodeScanning', '6.0.0'
   spec.dependency 'GoogleMLKit/TextRecognition', '6.0.0'
-  spec.dependency 'SSZipArchive', '2.4.3'
-
+  spec.dependency 'lottie-ios', '4.4.3'
 end

@@ -38,33 +38,7 @@ Integration with your app is supported via CocoaPods and Swift Package Manager. 
 	
 3. Click _Add Package_ to add the MoMo EKYC SDK to your Xcode project and then click again to confirm.
 
-#### Installing via Package.swift
-
-If you prefer, you can add MoMo EKYC via your Package.swift file as follows:
-
-```swift
-.package(
-	name: "MomoEkycSDK",
-	url: "https://github.com/MomoEkyc/ios.git",
-	.upToNextMajor(from: "1.0.0")
-),
-```
-
 Then add `MomoEkycSDK` to the `dependencies` array of any target for which you wish to use MoMo EKYC.
-
-### Manual Installation
-
-1. Select your project in Xcode.
-
-2. Select your app target.
-
-3. Select the **General** tab and then scroll down to **Frameworks, Libraries, and Embedded Content**.
-
-4. Add `MomoEkycSDK.xcframework` from the [release assets](https://github.com/MomoEkyc/ios/releases/tag).
-
-	> **Note**: Ensure you add the .xcframework file, rather than the .framework file.
-
-5. Under the **Embed** column, ensure **Embed & Sign** is set.
 
 ----
 
@@ -76,7 +50,7 @@ Add an `NSCameraUsageDescription` entry to your app's Info.plist, with the reaso
 
 ## Get Started
 
-TBU
+To verify a user, follow the steps below.
 
 ### Launch the SDK
 
@@ -90,45 +64,44 @@ let token = "{{ your token here }}"
 var sessionStateJob: AnyCancellable? = nil
 let session = momoEkyc.launch(token: "", options: options)
 sessionStateJob = momoEkyc.sessionState.$value.sink(receiveValue: { sessionState  in
-	if sessionState?.uuid == session.uuid {
-		self.observeState(sessionState!)
-	}
+    if sessionState?.uuid == session.uuid {
+        self.observeState(sessionState!)
+    }
 })
 
 private func observeState(_ sessionState: MomoEKYC.Session) {
-	switch session.state {
+    switch session.state {
 	case .starting:
-		// The SDK initializing
+	    // The SDK initializing
 	case .connecting:
-		// TBU
+	    // The SDK connecting
 	case .connected:
-		// The SDK has connected, and the MoMo EKYC user interface will now be displayed. You should hide
-		// any progress indication at this point.
-	case let .processing(progress):
-		// The SDK will update your app with the progress of scan
-		// This will be called multiple times as the progress updates.
-	case let .success(result):
-		// The user was successfully verified and the data has been validated.
-		// You can access the following properties:
-		let imageData: String = result.data // base64|encrypted_data
-	case let .failure(errorCode, errorMessage):
-		// The user was not successfully verified, as their identity could not be verified,
-		// or there was another issue with their verification.
-		// You can access the following properties:
-		let reason: FailureReason = result.reason // A reason of why the claim failed
-		// TBU
+	    // The SDK has connected, and the MoMo EKYC user interface will now be displayed. You should hide
+	    // any progress indication at this point.
+	case .processing(let progress, let message):
+	    // The SDK will update your app with the progress of scan
+	    // This will be called multiple times as the progress updates.
+	    let process = process
+	    let message = message
+	case .success(let result):
+	    // The user was successfully verified and the data has been validated.
+	    // You can access the following properties:
+	    let data = result as? String ?? ""// base64|encrypted_data for face flow
+	case .failure(let errorCode, let errorMessage):
+	    // The user was not successfully verified, as their identity could not be verified,
+	    // or there was another issue with their verification.
+	    // You can access the following properties:
+	    let errorCode = errorCode
+	    let errorMessage = errorMessage // A reason of why the process failed
 	case .canceled:
-		// Either:
-		//
-		// (a) The user canceled MoMo EKYC by pressing the back button, or sending the
-		// app to the background (canceler will be .user), or
-		//
-		// (b) You canceled MoMo EKYC by calling cancel() on the SDK (canceler will be .integration) - see cancelation below.
-	case let .error(error):
-		// The user was not successfully verified due to an error (e.g. exception)
-		// along with an `Error` with more information about the error (NSError in Objective-C).
-		// It will be called once, or never.
-	}
+	    // Either:
+	    // (a) The user canceled MoMo EKYC by pressing the back button, or sending the
+	    // (b) You canceled MoMo EKYC by calling cancel() on the SDK
+	case .error(let error):
+	    // The user was not successfully verified due to an error (e.g. exception)
+	    // along with an `Error` with more information about the error (NSError).
+	    // It will be called once, or never.
+    }
 }
 ```
 
@@ -140,7 +113,8 @@ let momoEkyc = MomoEKYC()
 let session = momoEkyc.launch(...)
 
 DispatchQueue.main.asyncAfter(deadline: .now() + 10) { // Example - cancel the session after 10 sec
-    session.clearSession() // Will return true if the session was successfully cleared
+    momoEkyc.clearSession() // Will return true if the session was successfully cleared
+    sessionStateJob?.cancel()
 }
 ```
 
@@ -151,11 +125,15 @@ You can customize the MoMoEKYC session by passing in an `MomoEKYC.Options` refer
 | Option Name | Description | Default Value |
 | --- | --- | --- |
 | `flow` | The MoMo EKYC SDK will launch the corresponding flow. [See below for further detail](#flow-options). | `MomoEKYC.Flow.face` |
-| `backgroundColor`| Background color.| `nil` |
-| `tintColor` | Tint color. | `nil` |
-| `font`  | Name of the font to be used for the title & prompt. | `"HelveticaNeue-Medium"` |
-| `logoImage`  | Logo to be placed next to the title. | `nil` |
-
+| `header`| Title of header.| `null` |
+| `headerTextColor`| Header text color.| `nil` |
+| `headerBackgroundColor`| Header background color.| `nil` |
+| `primaryColor`| Primary color.| `nil` |
+| `font`  | Resource of the font to be used for the title & content. | `null` |
+| `logo`  | Resource of the logo to be placed next to the title. | `null` |
+| `enableResult`  | Enable result screen when process succeed. | `false` |
+| `locale`  | Localizable content. | `vi` |
+---
 ### Flow Options
 
 The SDK supports three different flow:
@@ -189,7 +167,7 @@ Example:
 ```swift
 options.flow = MomoEKYC.Flow.nfc
 ```
-
+---
 ### String Localization & Customization
 
 The SDK ships with support for the following languages:
