@@ -189,3 +189,15 @@ Example:
 ```swift
 options.flow = MomoEKYC.Flow.nfc
 ```
+
+### String Localization & Customization
+
+The SDK ships with support for the following languages:
+| Language                | Code    |
+|-------------------------|---------|
+| English (United States) | `en-US` |
+| Vietnamese              | `vi`    |
+
+You can customize the strings in the app or localize them into a different language,
+
+All strings are prefixed with `momo__` and you can override them in `Localizable.strings`.
